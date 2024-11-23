@@ -1,0 +1,11 @@
+[package]
+name = "MatrixMultiply_rs_par"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7.0"
+clap = { version = "3.2", features = ["derive"] }
+rand = "0.8"
+num_cpus = "1.13.0"
+crossbeam = "0.8.0"
