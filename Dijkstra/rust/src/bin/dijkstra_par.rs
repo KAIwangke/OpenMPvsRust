@@ -150,10 +150,8 @@ fn main() {
 
     // End timing
     let duration = start.elapsed();
-    println!(
-        "Time taken for parallel Dijkstra's algorithm: {:.6} seconds",
-        duration.as_secs_f64()
-    );
+    println!("Time taken for parallel Dijkstra in Rust for size {1} by {1}: {0:?}", duration, size);
+    
 
     // Uncomment the following lines to print the shortest distances
     /*

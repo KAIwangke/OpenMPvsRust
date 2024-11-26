@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 
     // Calculate elapsed time in microseconds
     chrono::duration<double> elapsed = end - start;
-    cout << "Matrix multiplication took " << elapsed.count() * 1e6 << " microseconds." << endl;
+    cout << "Matrix multiplication took " << elapsed.count() << " microseconds." << endl;
 
     // Write result to output file
     write_matrix(C, output_file);
