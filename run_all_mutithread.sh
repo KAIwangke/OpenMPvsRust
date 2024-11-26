@@ -35,11 +35,11 @@ RESULTS_DIR="results_$TIMESTAMP"
 mkdir -p "$RESULTS_DIR"
 
 # Define problem sizes for each algorithm
-PROBLEM_SIZES=(10 100)
-Dijkstra_SIZES=(10 100)
-MC_SIZES=(10 100)
-KMeans_SIZES=(10 100)
-Matrix_Multiplication_SIZES=(10 100)
+PROBLEM_SIZES=(10 100 1000 10000)
+Dijkstra_SIZES=(10 100 1000 10000)
+MC_SIZES=(10 100 1000 10000)
+KMeans_SIZES=(10 100 1000 10000)
+Matrix_Multiplication_SIZES=(10 100 1000 10000)
 
 # Define number of clusters for KMeans
 KMEANS_CLUSTERS=10
