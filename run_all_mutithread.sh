@@ -39,7 +39,7 @@ PROBLEM_SIZES=(10 100 1000 10000)
 Dijkstra_SIZES=(10 100 1000 10000)
 MC_SIZES=(10 100 1000 10000)
 KMeans_SIZES=(10 100 1000 10000)
-Matrix_Multiplication_SIZES=(10 100 1000)
+Matrix_Multiplication_SIZES=(10 100 1000 10000)
 
 # Define number of clusters for KMeans
 KMEANS_CLUSTERS=10
@@ -412,6 +412,12 @@ for THREADS in "${THREAD_CONFIGS[@]}"; do
 
     # Matrix Multiplication
     for size in "${Matrix_Multiplication_SIZES[@]}"; do
+        # Skip size 10000 for matrix multiplication
+        if [ "$size" -eq 10000 ]; then
+            echo_info "Skipping Matrix Multiplication for size 10000..."
+            continue
+        fi
+        
         matrix1="Matrix_Multiplication/matrix1_${size}.txt"
         matrix2="Matrix_Multiplication/matrix2_${size}.txt"
         output_par="output_${size}_par.txt"
