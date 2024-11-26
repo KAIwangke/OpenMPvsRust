@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
     auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
     exportResults(outputFilePath);
-    cout << "Sequential K-Means completed in " << duration << " microseconds." << endl;
+    std::cout <<duration<< std::endl;
 
     return 0;
 }

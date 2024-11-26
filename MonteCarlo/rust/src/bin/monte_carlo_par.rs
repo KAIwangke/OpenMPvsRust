@@ -34,14 +34,12 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 || args.len() > 3 {
-        eprintln!("Usage: {} <num_points> [num_threads]", args[0]);
         std::process::exit(1);
     }
 
     let num_points: u64 = match args[1].parse() {
         Ok(n) if n > 0 => n,
         _ => {
-            eprintln!("Number of points must be positive.");
             std::process::exit(1);
         }
     };
@@ -50,7 +48,6 @@ fn main() {
         match args[2].parse::<usize>() {
             Ok(n) if n > 0 => n,
             _ => {
-                eprintln!("Number of threads must be positive.");
                 std::process::exit(1);
             }
         }
@@ -67,5 +64,5 @@ fn main() {
     let pi_estimate = pool.install(|| estimate_pi(num_points));
     let duration = start.elapsed();
 
-    println!("Time taken: {} microseconds", duration.as_micros());
+    println!("{}", duration.as_micros());
 }

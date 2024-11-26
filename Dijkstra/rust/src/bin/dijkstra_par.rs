@@ -86,7 +86,6 @@ fn main() {
     // Parse command-line arguments
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 || args.len() > 3 {
-        eprintln!("Usage: {} <graph_size> [num_threads]", args[0]);
         std::process::exit(1);
     }
 
@@ -94,7 +93,6 @@ fn main() {
     let size: usize = match args[1].parse() {
         Ok(n) if n > 0 => n,
         _ => {
-            eprintln!("Error: <graph_size> must be a positive integer.");
             std::process::exit(1);
         }
     };
@@ -104,7 +102,6 @@ fn main() {
         let num_threads: usize = match args[2].parse() {
             Ok(n) if n > 0 => n,
             _ => {
-                eprintln!("Error: [num_threads] must be a positive integer.");
                 std::process::exit(1);
             }
         };
@@ -112,7 +109,6 @@ fn main() {
             .num_threads(num_threads)
             .build_global()
             .unwrap_or_else(|_| {
-                eprintln!("Error: Failed to build the Rayon thread pool.");
                 std::process::exit(1);
             });
     }
@@ -137,11 +133,6 @@ fn main() {
     }
     */
 
-    println!(
-        "Running parallel Dijkstra's algorithm with graph size {}x{} using Rayon...",
-        size, size
-    );
-
     // Start timing
     let start = Instant::now();
 
@@ -150,7 +141,9 @@ fn main() {
 
     // End timing
     let duration = start.elapsed();
-    println!("Time taken for parallel Dijkstra in Rust for size {1} by {1}: {0:?}", duration, size);
+    println!("{}", duration.as_micros());
+
+
     
 
     // Uncomment the following lines to print the shortest distances

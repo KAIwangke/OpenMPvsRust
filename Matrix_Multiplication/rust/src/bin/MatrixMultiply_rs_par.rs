@@ -73,7 +73,6 @@ fn matrix_multiply_parallel(a: &Vec<Vec<i32>>, b: &Vec<Vec<i32>>) -> Vec<Vec<i32
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() < 4 || args.len() > 5 {
-        eprintln!("Usage: ./MatrixMultiply_rs_par <matrix1_file> <matrix2_file> <output_file> [num_threads]");
         std::process::exit(1);
     }
 
@@ -93,13 +92,11 @@ fn main() -> io::Result<()> {
         .unwrap();
 
     // Print thread count
-    println!("The number of threads available = {}", num_threads);
 
     let (a, rows_a, cols_a) = read_matrix(matrix1_file)?;
     let (b, rows_b, _cols_b) = read_matrix(matrix2_file)?;
 
     if cols_a != rows_b {
-        eprintln!("Error: Matrix dimensions do not allow multiplication.");
         std::process::exit(1);
     }
 
@@ -109,11 +106,8 @@ fn main() -> io::Result<()> {
 
     write_matrix(output_file, &result)?;
 
-    println!("The matrix order N = {}", rows_a);
-    println!(
-        "Elapsed microseconds = {}",
-        elapsed_time.as_micros()
-    );
+    println!("{}", elapsed_time.as_micros());
+
 
     Ok(())
 }

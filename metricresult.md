@@ -300,3 +300,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 | Reduction Operation          | 17          | 3,023      | 177.82x           |
 | Total Sync Cost             | 101         | 2,802,029  | 27,742.86x        |
 
+
+
+
+

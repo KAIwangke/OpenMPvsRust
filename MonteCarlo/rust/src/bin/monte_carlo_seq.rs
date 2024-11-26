@@ -21,14 +21,12 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 2 {
-        eprintln!("Usage: {} <num_points>", args[0]);
         std::process::exit(1);
     }
 
     let num_points: u64 = match args[1].parse() {
         Ok(n) => n,
         Err(_) => {
-            eprintln!("Argument must be a valid positive integer");
             std::process::exit(1);
         }
     };
@@ -37,5 +35,6 @@ fn main() {
     let pi_estimate = estimate_pi(num_points);
     let duration = start.elapsed();
 
-    println!("Time taken: {} microseconds", duration.as_micros());
+    println!("{}", duration.as_micros());
+    
 }

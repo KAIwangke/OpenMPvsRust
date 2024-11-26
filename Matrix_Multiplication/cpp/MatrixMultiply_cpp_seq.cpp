@@ -9,7 +9,6 @@ using namespace std;
 vector<vector<int>> read_matrix(const string &filename) {
     ifstream input_file(filename);
     if (!input_file.is_open()) {
-        cerr << "Error: Unable to open file " << filename << endl;
         exit(1);
     }
 
@@ -70,7 +69,6 @@ vector<vector<int>> matrix_multiply(const vector<vector<int>> &A, const vector<v
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
-        cerr << "Usage: ./matrix_multiply <matrix1_file> <matrix2_file> <output_file>" << endl;
         return 1;
     }
 
@@ -84,7 +82,6 @@ int main(int argc, char *argv[]) {
 
     // Check if multiplication is valid
     if (A[0].size() != B.size()) {
-        cerr << "Error: Matrix dimensions do not allow multiplication." << endl;
         return 1;
     }
 
@@ -98,8 +95,9 @@ int main(int argc, char *argv[]) {
     auto end = chrono::high_resolution_clock::now();
 
     // Calculate elapsed time in microseconds
-    chrono::duration<double> elapsed = end - start;
-    cout << "Matrix multiplication took " << elapsed.count() << " microseconds." << endl;
+    auto elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
+
+    cout <<elapsed.count()<< endl;
 
     // Write result to output file
     write_matrix(C, output_file);

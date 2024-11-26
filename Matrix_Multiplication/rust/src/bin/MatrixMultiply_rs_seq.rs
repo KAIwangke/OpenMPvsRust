@@ -74,7 +74,6 @@ fn main() -> io::Result<()> {
     // Parse command-line arguments
     let args: Vec<String> = env::args().collect();
     if args.len() != 4 {
-        eprintln!("Usage: ./matrix_multiply_seq <matrix1_file> <matrix2_file> <output_file>");
         std::process::exit(1);
     }
 
@@ -88,7 +87,6 @@ fn main() -> io::Result<()> {
 
     // Check if multiplication is valid
     if cols_a != rows_b {
-        eprintln!("Error: Matrix dimensions do not allow multiplication.");
         std::process::exit(1);
     }
 
@@ -105,11 +103,8 @@ fn main() -> io::Result<()> {
     write_matrix(output_file, &result)?;
 
     // Print output information
-    println!("The matrix order N = {}", rows_a);
-    println!(
-        "Elapsed microseconds = {}",
-        elapsed_time.as_micros()
-    );
+    println!("{}", elapsed_time.as_micros());
+
 
     Ok(())
 }

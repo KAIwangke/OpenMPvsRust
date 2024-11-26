@@ -35,11 +35,11 @@ RESULTS_DIR="results_$TIMESTAMP"
 mkdir -p "$RESULTS_DIR"
 
 # Define problem sizes for each algorithm
-PROBLEM_SIZES=(10 100 1000 10000)
-Dijkstra_SIZES=(10 100 1000 10000)
-MC_SIZES=(10 100 1000 10000)
-KMeans_SIZES=(10 100 1000 10000)
-Matrix_Multiplication_SIZES=(10 100 1000 10000)
+PROBLEM_SIZES=(10 100)
+Dijkstra_SIZES=(10 100)
+MC_SIZES=(10 100)
+KMeans_SIZES=(10 100)
+Matrix_Multiplication_SIZES=(10 100)
 
 # Define number of clusters for KMeans
 KMEANS_CLUSTERS=10
@@ -488,74 +488,26 @@ convert_scientific_notation() {
 extract_time() {
     local file=$1
     if [[ -f "$file" ]]; then
-        local content=$(<"$file")
+        # Read the first (and only) line from the file
         local time_value
-
-        if [[ "$DEBUG" == "true" ]]; then
-            echo "Processing file: $file" >&2
-            echo "File contents:" >&2
-            echo "$content" >&2
-        fi
-
-        # Define an array of regex patterns and corresponding actions
-        declare -A patterns=(
-            # Matrix Multiplication
-            ["Elapsed microseconds = ([0-9.]+)"]="echo \${BASH_REMATCH[1]}"
-            ["Matrix multiplication took ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Matrix multiplication took ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-
-            # K-Means
-            ["Parallel K-Means completed in ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Parallel K-Means completed in ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Sequential K-Means completed in ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Sequential K-Means completed in ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken = ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken = ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-
-            # Dijkstra
-            ["Time taken for sequential Dijkstra by OpenMP for graph size [0-9]+[a-z]+[0-9]+: ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken for sequential Dijkstra by OpenMP for graph size [0-9]+[a-z]+[0-9]+: ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken for parallel Dijkstra by OpenMP for graph size [0-9]+[a-z]+[0-9]+: ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken for parallel Dijkstra by OpenMP for graph size [0-9]+[a-z]+[0-9]+: ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken for parallel Dijkstra's algorithm: ([0-9.]+)[ ]?seconds"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Time taken for parallel Dijkstra's algorithm: ([0-9.]+)[ ]?s"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Execution Time: ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-
-            # Rust-specific Dijkstra patterns
-            ["Time taken for parallel Dijkstra in Rust for size [0-9]+ by [0-9]+: ([0-9.]+)µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken for parallel Dijkstra's algorithm: ([0-9.]+)[ ]?seconds"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Time taken for parallel Dijkstra's algorithm: ([0-9.]+)[ ]?s"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-
-            # Monte Carlo
-            ["Time taken: ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken: ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken = ([0-9.]+)[ ]?microseconds"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken = ([0-9.]+)[ ]?µs"]="echo \${BASH_REMATCH[1]}"
-            ["Time taken: ([0-9.]+)[ ]?seconds"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Time taken: ([0-9.]+)[ ]?s"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Time taken = ([0-9.]+)[ ]?seconds"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-            ["Time taken = ([0-9.]+)[ ]?s"]="echo \"\$(echo \"\${BASH_REMATCH[1]} * 1000000\" | bc -l)\""
-        )
-
-        # Iterate over patterns and apply them
-        for pattern in "${!patterns[@]}"; do
-            if [[ $content =~ $pattern ]]; then
-                eval "${patterns[$pattern]}"
-                return
+        read -r time_value < "$file"
+        
+        # Check if the value is a valid number
+        if [[ "$time_value" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            # Return the value in microseconds
+            echo "scale=3; $time_value" | bc -l
+        else
+            if [[ "$DEBUG" == "true" ]]; then
+                echo "Invalid time value in file $file: $time_value" >&2
             fi
-        done
-
-        # If no pattern matched
-        if [[ "$DEBUG" == "true" ]]; then
-            echo "No matching pattern found for content:" >&2
-            echo "$content" >&2
+            echo "0"
         fi
     else
         if [[ "$DEBUG" == "true" ]]; then
             echo "File not found: $file" >&2
         fi
+        echo "0"
     fi
-    echo "0"
 }
 
 
@@ -647,7 +599,7 @@ print_algorithm_section() {
 
     for size in "${sizes[@]}"; do
         echo "Problem Size: $size"
-        echo "Threads | C++ Seq (µs) | C++ Par (µs) | Rust Seq (µs) | Rust Par (µs) | C++ Speedup | Rust Speedup"
+        echo "Threads | C++ Seq (ms) | C++ Par (ms) | Rust Seq (ms) | Rust Par (ms) | C++ Speedup | Rust Speedup"
         echo "--------|--------------|--------------|---------------|---------------|-------------|-------------"
 
         # Get sequential times
@@ -721,7 +673,7 @@ PERFORMANCE_FILE="${RESULTS_DIR}/performance_comparison_threads.txt"
     print_algorithm_section "4. Monte Carlo" MC_SIZES[@] "MonteCarlo"
 
     echo "Notes:"
-    echo "- All times are in microseconds (µs)"
+    echo "- All times are in microseconds (ms)"
     echo "- Speedup = Sequential Time / Parallel Time"
     echo "- Tests conducted with thread counts: ${THREAD_CONFIGS[*]}"
     echo "- Sequential times are shown for reference and are the same across all thread configurations"

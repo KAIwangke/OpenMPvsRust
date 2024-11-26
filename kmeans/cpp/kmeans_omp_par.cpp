@@ -180,8 +180,8 @@ int main(int argc, char* argv[]) {
     printResults(output_file);
 
     // Print execution details
-    cout << "Parallel K-Means completed in " << duration << " microseconds." << endl;
-    cout << "Number of clusters: " << K << ", Number of threads: " << num_threads << endl;
+    std::cout <<duration<< std::endl;
+
 
     // Clean up memory
     delete[] points;

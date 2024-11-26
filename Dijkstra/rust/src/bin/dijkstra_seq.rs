@@ -91,7 +91,8 @@ fn main() {
 
     // end clock
     let duration = start.elapsed();
-    println!("Time taken for parallel Dijkstra in Rust for size {1} by {1}: {0:?}", duration, size);
+    println!("{}", duration.as_micros());
+
 
 
 

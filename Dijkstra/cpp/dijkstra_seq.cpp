@@ -10,7 +10,6 @@
 // print results
 void printSolution(int * result, int size)
 {
-    printf("Vertex \t\t Distance from Source\n");
     for (int i = 0; i < size; i++)
         printf("%d \t\t\t\t %d\n", i, result[i]);
 }
@@ -119,7 +118,7 @@ int main(int argc, char* argv[]){
     // end clock
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> duration = end - start;
-    std::cout << "Execution Time: " << duration.count() << " microseconds" << std::endl;
+    std::cout << duration.count()<< std::endl;
 
     return 0;
 }

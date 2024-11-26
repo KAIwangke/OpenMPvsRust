@@ -173,7 +173,8 @@ fn main() -> io::Result<()> {
     kmeans.print_results(output_filename)?;
 
     // Print execution time in microseconds
-    println!("Time taken = {} microseconds", elapsed_time.as_micros());
+    println!("{}", elapsed_time.as_micros());
+
     Ok(())
 }
 

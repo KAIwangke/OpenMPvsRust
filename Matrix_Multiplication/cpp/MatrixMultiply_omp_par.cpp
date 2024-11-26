@@ -10,7 +10,6 @@ using namespace std;
 vector<vector<int>> read_matrix(const string &filename) {
     ifstream input_file(filename);
     if (!input_file.is_open()) {
-        cerr << "Error: Unable to open file " << filename << endl;
         exit(1);
     }
 
@@ -32,7 +31,6 @@ vector<vector<int>> read_matrix(const string &filename) {
 void write_matrix(const vector<vector<int>> &matrix, const string &filename) {
     ofstream output_file(filename);
     if (!output_file.is_open()) {
-        cerr << "Error: Unable to open file " << filename << endl;
         exit(1);
     }
 
@@ -73,7 +71,6 @@ vector<vector<int>> matrix_multiply_parallel(const vector<vector<int>> &A, const
 
 int main(int argc, char *argv[]) {
     if (argc < 4 || argc > 5) {
-        cerr << "Usage: ./matrix_multiply_omp <matrix1_file> <matrix2_file> <output_file> [thread_count]" << endl;
         return 1;
     }
 
@@ -88,7 +85,6 @@ int main(int argc, char *argv[]) {
 
     // Check if multiplication is valid
     if (A[0].size() != B.size()) {
-        cerr << "Error: Matrix dimensions do not allow multiplication." << endl;
         return 1;
     }
 
@@ -111,9 +107,7 @@ int main(int argc, char *argv[]) {
     write_matrix(C, output_file);
 
     // Print output information
-    cout << "The number of threads available = " << thread_count << endl;
-    cout << "The matrix order N = " << matrix_order << endl;
-    cout << "Elapsed microseconds = " << elapsed.count() << endl;
+    cout <<elapsed.count()<< endl;
 
     return 0;
 }

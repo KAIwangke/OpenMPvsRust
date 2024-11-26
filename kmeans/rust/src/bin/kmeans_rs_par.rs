@@ -185,8 +185,7 @@ fn main() -> io::Result<()> {
 
     kmeans.print_results(output_filename)?;
 
-    println!("Time taken = {} microseconds", elapsed_time.as_micros());
-    println!("Cluster count: {}, Thread count: {}", cluster_count, thread_count);
+    println!("{}", elapsed_time.as_micros());
     Ok(())
 }
 

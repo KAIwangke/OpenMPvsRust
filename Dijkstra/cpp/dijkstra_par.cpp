@@ -135,14 +135,12 @@ void generateAdjMatrix(int* adjMatrix, int size){
 int main(int argc, char* argv[]){
 
     if (argc < 2 || argc > 3) {
-        std::cerr << "Usage: " << argv[0] << " <graph_size> [num_threads]" << std::endl;
         return EXIT_FAILURE;
     }
 
     int size = atoi(argv[1]);
 
     if (size <= 0) {
-        std::cerr << "Error: Graph size must be a positive integer." << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -151,7 +149,6 @@ int main(int argc, char* argv[]){
     if (argc == 3) {
         num_threads = atoi(argv[2]);
         if (num_threads <= 0) {
-            std::cerr << "Error: Number of threads must be a positive integer." << std::endl;
             return EXIT_FAILURE;
         }
         omp_set_num_threads(num_threads);
@@ -163,15 +160,13 @@ int main(int argc, char* argv[]){
     // Allocate memory for the adjacency matrix
     int* graph = (int*)calloc(size*size, sizeof(int));
     if (graph == NULL) {
-        std::cerr << "Memory allocation for graph failed." << std::endl;
         return EXIT_FAILURE;
     }
 
     // Generate the adjacency matrix
     generateAdjMatrix(graph, size);
 
-    std::cout << "Running parallel Dijkstra's algorithm with graph size " 
-              << size << "x" << size << " using " << num_threads << " thread(s)..." << std::endl;
+
 
     // Start timing
     auto start = std::chrono::high_resolution_clock::now();
@@ -184,7 +179,7 @@ int main(int argc, char* argv[]){
     std::chrono::duration<double, std::micro> duration = end - start;
     double seconds = duration.count() / 1000000.0;
 
-    std::cout << "Execution Time: " << duration.count() << " microseconds" << std::endl;
+    std::cout <<duration.count()<< std::endl;
 
     // Uncomment the following line to print the shortest distances
     // printSolution(distances, size);
