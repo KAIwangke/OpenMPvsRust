@@ -119,7 +119,7 @@ int main(int argc, char* argv[]){
     // end clock
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> duration = end - start;
-    std::cout << "Time taken for sequential Dijkstra by OpenMP for graph size " << size << "by " << size <<": " << duration.count() << " microseconds" << std::endl;
+    std::cout << "Execution Time: " << duration.count() << " microseconds" << std::endl;
 
     return 0;
 }

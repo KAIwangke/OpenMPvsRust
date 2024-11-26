@@ -1,11 +1,7 @@
 [package]
-name = "kmeans-rs"
+name = "kmeans_rust"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 rayon = "1.7"
-
-[[bin]]
-name = "kmeans_rs_par"
-path = "kmeans_rs_par.rs"

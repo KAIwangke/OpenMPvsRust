@@ -1,0 +1,14 @@
+Dijkstra/rust/target/release/
+release
+target
+input_*
+results_*
+matrix1_*
+matrix2_*
+all_contents.txt
+scan.sh
+
+output_*
+results_
+out*
+result_*
