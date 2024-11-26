@@ -235,7 +235,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 1: Total Execution Time Comparison (4 threads)
 
-| Problem Size | OpenMP (μs) | Rayon (μs) | Difference (μs) | Rayon Speedup |
+| Problem Size | OpenMP (ms) | Rayon (ms) | Difference (ms) | Rayon Speedup |
 | --- | --- | --- | --- | --- |
 | 10 | 387 | 102 | 285 | 3.79x |
 | 100 | 3,252 | 1,383 | 1,869 | 2.35x |
@@ -244,7 +244,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 2: Thread Scaling Analysis (Size 10000)
 
-| Thread Count | OpenMP (μs) | Rayon (μs) | OpenMP Scaling Efficiency | Rayon Scaling Efficiency |
+| Thread Count | OpenMP (ms) | Rayon (ms) | OpenMP Scaling Efficiency | Rayon Scaling Efficiency |
 | --- | --- | --- | --- | --- |
 | 4 | 2,069,160 | 1,185,601 | 100% | 100% |
 | 8 | 2,738,210 | 1,202,509 | 75.6% | 98.6% |
@@ -253,7 +253,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 3: Overhead Comparison (Size 10000, 4 threads)
 
-| Metric | OpenMP (μs) | Rayon (μs) | Difference (μs) | % of Total Time (OpenMP) | % of Total Time (Rayon) |
+| Metric | OpenMP (ms) | Rayon (ms) | Difference (ms) | % of Total Time (OpenMP) | % of Total Time (Rayon) |
 | --- | --- | --- | --- | --- | --- |
 | Thread Creation | 13 | 625 | -612 | 0.001% | 0.053% |
 | Thread Termination | 17 | 356 | -339 | 0.001% | 0.030% |
@@ -277,7 +277,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 5: Thread Creation and Management Costs
 
-| Thread Count | OpenMP Creation (μs) | Rayon Creation (μs) | OpenMP Termination (μs) | Rayon Termination (μs) |
+| Thread Count | OpenMP Creation (ms) | Rayon Creation (ms) | OpenMP Termination (ms) | Rayon Termination (ms) |
 | --- | --- | --- | --- | --- |
 | 4 | 13 | 625 | 17 | 356 |
 | 8 | 33 | 1,248 | 178 | 646 |
@@ -286,7 +286,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 6: Load Balancing Analysis (Size 10000)
 
-| Thread Count | OpenMP Load Balance (μs) | Rayon Load Balance (μs) | OpenMP % of Total | Rayon % of Total |
+| Thread Count | OpenMP Load Balance (ms) | Rayon Load Balance (ms) | OpenMP % of Total | Rayon % of Total |
 | --- | --- | --- | --- | --- |
 | 4 | 1,649,467 | 934,409 | 79.72% | 78.81% |
 | 8 | 2,048,826 | 945,918 | 74.82% | 78.66% |
@@ -295,7 +295,7 @@ root@server:~/Perf-Eval-in-OpenMP-and-Rust/Dijkstra/rust#
 
 ## Sheet 7: Synchronization Costs Analysis
 
-| Metric (Size 10000, 4 threads) | OpenMP (μs) | Rayon (μs) | Ratio (Rayon/OpenMP) |
+| Metric (Size 10000, 4 threads) | OpenMP (ms) | Rayon (ms) | Ratio (Rayon/OpenMP) |
 | --- | --- | --- | --- |
 | Barrier Synchronization | 24 | 2,273 | 94.71x |
 | Critical Section/Join | 60 | 2,796,733 | 46,612.22x |
