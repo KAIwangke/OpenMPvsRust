@@ -26,24 +26,51 @@ This repository contains a comparative analysis of parallel programming implemen
 
 ```
 .
-├── Dijkstra/
-│   ├── cpp/
-│   │   ├── dijkstra_RuntimeOverhead.cpp
-│   │   ├── dijkstra_par.cpp
-│   │   └── dijkstra_seq.cpp
-│   └── rust/
-│       └── src/
-│           └── bin/
-│               ├── dijkstra_RuntimeOverhead.rs
-│               ├── dijkstra_par.rs
-│               └── dijkstra_seq.rs
-├── Matrix_Multiplication/
-├── kmeans/
-├── MonteCarlo/
-└── scripts/
-    ├── clean.sh
-    ├── run_all_multithread.sh
-    └── run_all.sh
+├── README.md
+├── algorithms
+│   ├── dijkstra
+│   │   ├── cpp
+│   │   │   ├── dijkstra_par.cpp
+│   │   │   └── dijkstra_seq.cpp
+│   │   └── rust
+│   │       ├── Cargo.toml
+│   │       └── src
+│   │           └── bin
+│   │               ├── dijkstra_par.rs
+│   │               └── dijkstra_seq.rs
+│   ├── kmeans
+│   │   ├── cpp
+│   │   │   ├── kmeans_par.cpp
+│   │   │   └── kmeans_seq.cpp
+│   │   └── rust
+│   │       ├── Cargo.toml
+│   │       └── src
+│   │           └── bin
+│   │               ├── kmeans_par.rs
+│   │               └── kmeans_seq.rs
+│   ├── matrix_multiplication
+│   │   ├── cpp
+│   │   │   ├── matrix_multiply_par.cpp
+│   │   │   └── matrix_multiply_seq.cpp
+│   │   └── rust
+│   │       ├── Cargo.toml
+│   │       └── src
+│   │           └── bin
+│   │               ├── matrix_multiply_par.rs
+│   │               └── matrix_multiply_seq.rs
+│   └── monte_carlo
+│       ├── cpp
+│       │   ├── monte_carlo_par.cpp
+│       │   └── monte_carlo_seq.cpp
+│       └── rust
+│           ├── Cargo.toml
+│           └── src
+│               └── bin
+│                   ├── monte_carlo_par.rs
+│                   └── monte_carlo_seq.rs
+├── clean.sh
+├── run_all_multithread.sh
+└── run_all.sh
 ```
 
 ## Prerequisites
