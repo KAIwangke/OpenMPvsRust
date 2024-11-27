@@ -127,13 +127,3 @@ cargo build --release
 
 cat output3_rs_seq.txt
 */
-
-
-for iter = 1 to max_iters:
-    # Step A: Assign points to the nearest centroid
-    parallel for i = 1 to N:
-        cluster[i] = argmin_k distance(D[i], centroid[k])
-    # Step B: Update centroids
-    parallel for k = 1 to K:
-        points_in_cluster = {D[i] | cluster[i] == k}
-        centroid[k] = mean(points_in_cluster)
